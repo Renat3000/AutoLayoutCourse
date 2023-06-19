@@ -19,9 +19,9 @@ class ViewController: UIViewController {
         
         //create controls
         let leadingGuide = UILayoutGuide()
-        let okButton = makeButton(title: "OK", color: .darkBlue)
+        let okButton = makeButton(title: "OK", color: .systemGreen)
         let middleGuide = UILayoutGuide()
-        let cancelButton = makeButton(title: "Cancel", color: .darkGreen)
+        let cancelButton = makeButton(title: "Cancel", color: .systemBlue)
         let trailingGuide = UILayoutGuide()
         
         //add to subviews & layout guide
@@ -67,21 +67,17 @@ class ViewController: UIViewController {
     }
     
     func makeButton(title: String, color: UIColor) -> UIButton {
-        let button = UIButton()
+        let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(title, for: .normal)
         button.titleLabel?.adjustsFontSizeToFitWidth = true
-        button.contentEdgeInsets = UIEdgeInsets.init(top: 8, left: 16, bottom: 8, right: 16) //'contentEdgeInsets' was deprecated in iOS 15.0: This property is ignored when using UIButtonConfiguration
-
-        button.backgroundColor = color
-        
+//        button.contentEdgeInsets = UIEdgeInsets.init(top: 8, left: 16, bottom: 8, right: 16) //'contentEdgeInsets' was deprecated in iOS 15.0: This property is ignored when using UIButtonConfiguration
+        var config = UIButton.Configuration.filled()
+        config.baseBackgroundColor = color
+        config.cornerStyle = .capsule
+        config.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16)
+        button.configuration = config
         return button
     }
-    
 
-}
-
-extension UIColor {
-    static let darkBlue = UIColor(red: 10/255, green: 132/255, blue: 255/255, alpha: 1)
-    static let darkGreen = UIColor(red: 48/255, green: 209/255, blue: 88/255, alpha: 1)
 }
